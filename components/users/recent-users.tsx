@@ -1,20 +1,15 @@
 import { Button } from "../ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { AddUserDialog } from "./add-user";
 
 const RecentUsers = () => {
     return (<div className=" py-6">
         <section className="bg-white p-6 rounded-lg shadow-sm">
             <div className="flex justify-between items-center">
                 <h1 className="text-lg font-semibold text-gray-800 mb-4">Recent Added</h1>
-                <Button
-                    variant="outline"
-                    className="rounded-xl border border-green-800 bg-transparent text-green-800 hover:bg-green-100 focus:outline-none"
-                    aria-label="Add users"
-                >
-                    Add User
-                </Button>
+                <AddUserDialog />
             </div>
-            <Table>
+            <Table className="min-w-[700px]">
                 <TableHeader>
                     <TableRow>
                         <TableHead >Username</TableHead>
