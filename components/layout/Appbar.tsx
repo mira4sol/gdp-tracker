@@ -25,7 +25,7 @@ type AuthContextType = {
 }
 
 const AppBar = () => {
-  const { isLoggedIn, user } = useAuth() as AuthContextType
+  const { isLoggedIn, user } = useAuth()
   const pathname = usePathname()
 
   const navItems: NavItem[] = [
