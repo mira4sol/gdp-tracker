@@ -25,8 +25,6 @@ type AuthContextType = {
   user: User | null
 }
 
-
-
 const AppBar = () => {
 
   const { isLoggedIn, user } = useAuth() as AuthContextType
@@ -51,8 +49,6 @@ const AppBar = () => {
         className="w-20 h-auto sm:w-32" />
       </Link>
 
-
-
       <div className="hidden md:flex items-center gap-5">
         {navItems.map((item) => (
           <Link
@@ -65,6 +61,7 @@ const AppBar = () => {
             {item.label}
           </Link>
         ))}
+
       </div>
 
       <div className="flex items-center gap-4">
