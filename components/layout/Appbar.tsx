@@ -4,6 +4,7 @@ import { login } from '@/app/actions'
 import { useAuth } from '@/contexts/auth.context'
 import { PlusIcon } from 'lucide-react'
 import { Button } from '../ui/button'
+import Link from 'next/link'
 
 const AppBar = () => {
   // const [isLoggedin, setIsLoggedin] = useState(false)
@@ -14,8 +15,8 @@ const AppBar = () => {
       <button>Chapter Switcher btn</button>
 
       <div className='flex gap-5'>
-        <p>Dashboard</p>
-        <p>Analytics</p>
+        <Link href={"/"}>Dashboard</Link>
+        <Link href={"/analytics"}>Analytics</Link>
       </div>
 
       {isLoggedIn ? (
