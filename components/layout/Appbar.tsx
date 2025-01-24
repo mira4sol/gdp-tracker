@@ -9,21 +9,6 @@ const AppBar = () => {
   // const [isLoggedin, setIsLoggedin] = useState(false)
   const { isLoggedIn } = useAuth()
 
-  // const checkLogin = async () => {
-  //   const supabase = await createClient()
-  //   const { data, error } = await supabase.auth.getUser()
-  //   if (error) {
-  //     console.error(error)
-  //   }
-  //   if (data) {
-  //     setIsLoggedin(true)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   checkLogin()
-  // }, [])
-
   return (
     <div className='flex items-center w-full border-b border-black/10 justify-between py-6 px-10'>
       <button>Chapter Switcher btn</button>
