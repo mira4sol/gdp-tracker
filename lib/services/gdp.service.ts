@@ -60,7 +60,8 @@ export class WaitListService {
   }
 
   static async getWaitListCount() {
-    const { count, error } = await supabaseClient
+    const supabase = await createClient()
+    const { count, error } = await supabase
       .from('waitlist')
       .select('*', { count: 'exact', head: true })
     if (error) return 0

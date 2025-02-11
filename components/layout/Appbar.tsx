@@ -15,15 +15,6 @@ type NavItem = {
   href: string
 }
 
-type User = {
-  role: 'admin' | 'moderator' | 'user'
-}
-
-type AuthContextType = {
-  isLoggedIn: boolean
-  user: User | null
-}
-
 const AppBar = () => {
   const { isLoggedIn, user } = useAuth()
   const pathname = usePathname()
