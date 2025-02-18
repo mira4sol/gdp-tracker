@@ -132,12 +132,11 @@ export class GDPService {
   static async getUniqueUsers() {
     try {
       const supabase = await createClient()
-      const { data, error } = await supabase.from('gdp').select('name')
-
+      const { data, error } = await supabase.rpc('get_unique_contributors')
       if (error)
         return apiResponse(false, 'Failed to fetch unique users', error.message)
 
-      return apiResponse(true, 'Unique users retrieved', data.length)
+      return apiResponse(true, 'Unique users retrieved', data)
     } catch (error: any) {
       return apiResponse(false, 'Error fetching unique users', error.message)
     }

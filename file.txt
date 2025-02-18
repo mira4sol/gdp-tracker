@@ -1,0 +1,328 @@
+{
+  "bounties": [
+    {
+      "name": "Sadeeq Abubakar",
+      "description": "Bounty completion",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "300",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "The Pen Slinger",
+      "description": "Twitter thread",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "20",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Sammy",
+      "description": "Utguard project",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "300",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Sammy",
+      "description": "Kast project",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "150",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Sammy",
+      "description": "Easy coin project",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "300",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Patrick",
+      "description": "Getcode design contest",
+      "guild": "design",
+      "category": "bounty",
+      "amount": "75",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "The Pen Slinger",
+      "description": "Sendcoin Twitter thread",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "167",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Patrick",
+      "description": "Rome protocol",
+      "guild": "design",
+      "category": "bounty",
+      "amount": "300",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Martins",
+      "description": "Decharge ambassador program",
+      "guild": "content",
+      "category": "bounty",
+      "amount": "30",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Raymond Philip",
+      "description": "Thread creation",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "60",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Raymond Philip",
+      "description": "Thread creation",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "100",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "The Pen Slinger",
+      "description": "Phalcon Video on X",
+      "guild": "content",
+      "category": "bounty",
+      "amount": "550",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Martins",
+      "description": "SAMO contest",
+      "guild": "content",
+      "category": "bounty",
+      "amount": "180",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Tony",
+      "description": "Devin Lab",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "538",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Muhammad Sulaiman",
+      "description": "Glint analytics thread",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "50",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "John Alphonsos",
+      "description": "Airbills Pay",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "30",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Sammie",
+      "description": "Phalcon video",
+      "guild": "content",
+      "category": "bounty",
+      "amount": "500",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Muhammad Suleiman Jibtil",
+      "description": "Share Experience",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "10",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Amina Bello",
+      "description": "Share Experience",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "10",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Sammie",
+      "description": "Greed Christmas",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "42",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Mujahid",
+      "description": "Greed Christmas",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "25",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Vincent",
+      "description": "Greed Christmas",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "43",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Frosh",
+      "description": "Greed Christmas",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "29",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Osman",
+      "description": "Greed Christmas",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "14",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "John Alphonsos",
+      "description": "Neon EVM",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "42",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Danial",
+      "description": "Greedmass",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "5.66",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Pen Slinger",
+      "description": "Greedmass",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "28",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Newton",
+      "description": "Quick node",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "400",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Pen Slinger",
+      "description": "JustX",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "150",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Sammie",
+      "description": "Debridge X Hyperliquid",
+      "guild": "development",
+      "category": "bounty",
+      "amount": "300",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Osman",
+      "description": "Writing",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "30",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Victoria Olusogun",
+      "description": "Writing",
+      "guild": "writing",
+      "category": "bounty",
+      "amount": "100",
+      "chapter": "kaduna"
+    }
+  ],
+  "hackathons": [
+    {
+      "name": "Mira",
+      "description": "Radar hackathon",
+      "guild": "development",
+      "category": "hackathon",
+      "amount": "300",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Newton",
+      "description": "Radar hackathon",
+      "guild": "development",
+      "category": "hackathon",
+      "amount": "300",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Akinshola",
+      "description": "Solana AI hackathon",
+      "guild": "development",
+      "category": "hackathon",
+      "amount": "261",
+      "chapter": "kaduna"
+    }
+  ],
+  "grants": [
+    {
+      "name": "Newton",
+      "description": "Blink grant",
+      "guild": "development",
+      "category": "grant",
+      "amount": "1000",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Favour",
+      "description": "Development grant",
+      "guild": "development",
+      "category": "grant",
+      "amount": "1500",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Dorcas",
+      "description": "Content creation grant",
+      "guild": "content",
+      "category": "grant",
+      "amount": "2000",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Mira",
+      "description": "Builder grant",
+      "guild": "development",
+      "category": "grant",
+      "amount": "1500",
+      "chapter": "kaduna"
+    },
+    {
+      "name": "Sammie",
+      "description": "Debridge content grant",
+      "guild": "content",
+      "category": "grant",
+      "amount": "1042",
+      "chapter": "kaduna"
+    }
+  ]
+}

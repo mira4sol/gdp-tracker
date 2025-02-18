@@ -123,7 +123,7 @@ export default function CategoryAnalytics() {
     const fetchCategoryData = async () => {
       const response = await gdpRequests.getGDPByCategory(setLoading)
       if (response.success && response.data) {
-        console.log('response.data', response.data)
+        // console.log('response.data', response.data)
         const formattedData = Object.entries(response.data?.data).map(
           ([category, gdp]) => ({
             category,

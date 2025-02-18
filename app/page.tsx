@@ -29,7 +29,7 @@ export default function Home() {
 
       // Handle earnings response
       if (earningsResponse.success) {
-        console.log('earningsResponse', earningsResponse.data?.data)
+        // console.log('earningsResponse', earningsResponse.data?.data)
         setAnalytics((prev) => ({
           ...prev,
           totalEarnings: `$${Number(
@@ -74,7 +74,7 @@ export default function Home() {
       value: analytics.totalBounties,
     },
     {
-      title: 'Total Users Recorded',
+      title: 'Total Contributors',
       value: analytics.totalUsers,
     },
   ]
