@@ -101,7 +101,7 @@ const RecentUsers = () => {
                     </TableCell>
                   </TableRow>
                 ))
-              : data.map((item: any, index: number) => (
+              : data?.map((item: any, index: number) => (
                   <TableRow key={index}>
                     <TableCell className='font-medium'>
                       {item.username}
