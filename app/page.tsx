@@ -67,15 +67,15 @@ export default function Home() {
   const cards = [
     {
       title: 'Total Value Earned',
-      value: loading ? '...' : analytics.totalEarnings,
+      value: analytics.totalEarnings,
     },
     {
       title: 'Total Bounties Won',
-      value: loading ? '...' : analytics.totalBounties,
+      value: analytics.totalBounties,
     },
     {
       title: 'Total Users Recorded',
-      value: loading ? '...' : analytics.totalUsers,
+      value: analytics.totalUsers,
     },
   ]
 
@@ -96,14 +96,29 @@ export default function Home() {
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
           {cards.map((card, index) => (
             <Card key={index} className='w-full'>
-              <CardHeader>
-                <CardTitle className='text-lg font-semibold text-gray-400'>
-                  {card.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className='text-2xl font-bold text-gray-700'>{card.value}</p>
-              </CardContent>
+              {loading ? (
+                <>
+                  <CardHeader>
+                    <div className='h-6 w-32 bg-gray-200 animate-pulse rounded' />
+                  </CardHeader>
+                  <CardContent>
+                    <div className='h-8 w-24 bg-gray-200 animate-pulse rounded' />
+                  </CardContent>
+                </>
+              ) : (
+                <>
+                  <CardHeader>
+                    <CardTitle className='text-lg font-semibold text-gray-400'>
+                      {card.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className='text-2xl font-bold text-gray-700'>
+                      {card.value}
+                    </p>
+                  </CardContent>
+                </>
+              )}
             </Card>
           ))}
         </div>

@@ -85,7 +85,7 @@ export function AddUserDialog({
           description: values.description,
           guild: values.guild,
           amount: values.amount.toString(),
-          chapter: 'default',
+          chapter: 'kaduna',
           category: values.category,
         },
         setLoading
