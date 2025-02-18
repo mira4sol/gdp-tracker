@@ -1,6 +1,8 @@
 'use client'
 
+import { gdpRequests } from '@/lib/api_requests/gdp.request'
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { Label, Pie, PieChart, Sector } from 'recharts'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -86,42 +88,53 @@ export const renderActiveShape = (props: any) => {
   )
 }
 
-const chartData = [
-  { guild: 'guildA', gdp: 275, label: 'Good', fill: 'purple' },
-  { guild: 'guildB', gdp: 200, fill: 'orange' },
-  { guild: 'guildC', gdp: 287, fill: 'maroon' },
-  { guild: 'guildD', gdp: 173, fill: 'wheat' },
-  { guild: 'guildE', gdp: 190, fill: 'green' },
-]
-
 const chartConfig = {
-  gdp: {
-    label: 'gdp',
+  development: {
+    label: 'Development',
+    color: '#4A90E2', // blue
   },
-  guildA: {
-    label: 'Guild A',
-    color: 'purple',
+  writing: {
+    label: 'Writing',
+    color: '#50C878', // emerald green
   },
-  guildB: {
-    label: 'Guild B',
-    color: 'orange',
+  content: {
+    label: 'Content',
+    color: '#9B59B6', // purple
   },
-  guildC: {
-    label: 'Guild C',
-    color: 'maroon',
-  },
-  guildD: {
-    label: 'Guild D',
-    color: 'wheat',
-  },
-  guildE: {
-    label: 'Guild E',
-    color: 'green',
+  design: {
+    label: 'Design',
+    color: '#E74C3C', // red
   },
 } satisfies ChartConfig
 
+interface ChartDataItem {
+  guild: string
+  gdp: number
+  fill: string
+}
+
 export default function GuildAnalytics() {
-  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768)
+  const [loading, setLoading] = useState(false)
+  const [chartData, setChartData] = useState<ChartDataItem[]>([])
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+
+  useEffect(() => {
+    const fetchGuildData = async () => {
+      const response = await gdpRequests.getGDPByGuild(setLoading)
+      if (response.success && response.data) {
+        const formattedData = Object.entries(response.data?.data).map(
+          ([guild, gdp]) => ({
+            guild,
+            gdp: Number(gdp),
+            fill:
+              chartConfig[guild as keyof typeof chartConfig]?.color || '#000',
+          })
+        )
+        setChartData(formattedData)
+      }
+    }
+    fetchGuildData()
+  }, [])
 
   React.useEffect(() => {
     // This code will only run on the client side
@@ -141,7 +154,7 @@ export default function GuildAnalytics() {
 
   const totalgdp = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.gdp, 0)
-  }, [])
+  }, [chartData])
 
   return (
     <Card className='flex flex-col w-full shadow-none border-none '>
@@ -150,64 +163,70 @@ export default function GuildAnalytics() {
         {/* <CardDescription>$25,000 </CardDescription> */}
       </CardHeader>
       <CardContent className='flex-1 pb-0 '>
-        <ChartContainer
-          config={chartConfig}
-          className='mx-auto aspect-square max-h-[300px] py-6 w-full h-full '
-        >
-          <PieChart className='h-full '>
-            <ChartTooltip
-              cursor={true}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Pie
-              data={chartData}
-              dataKey='gdp'
-              nameKey='guild'
-              innerRadius={60}
-              strokeWidth={5}
-              cx='50%'
-              cy='50%'
-              // activeShape={renderActiveShape}
-            >
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
-                    return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor='middle'
-                        dominantBaseline='middle'
-                      >
-                        <tspan
+        {loading ? (
+          <div className='flex justify-center items-center h-[300px]'>
+            <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary' />
+          </div>
+        ) : (
+          <ChartContainer
+            config={chartConfig}
+            className='mx-auto aspect-square max-h-[300px] py-6 w-full h-full '
+          >
+            <PieChart className='h-full '>
+              <ChartTooltip
+                cursor={true}
+                content={<ChartTooltipContent hideLabel />}
+              />
+              <Pie
+                data={chartData}
+                dataKey='gdp'
+                nameKey='guild'
+                innerRadius={60}
+                strokeWidth={5}
+                cx='50%'
+                cy='50%'
+                // activeShape={renderActiveShape}
+              >
+                <Label
+                  content={({ viewBox }) => {
+                    if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                      return (
+                        <text
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className='fill-foreground text-3xl font-bold'
+                          textAnchor='middle'
+                          dominantBaseline='middle'
                         >
-                          ${totalgdp.toLocaleString()}
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className='fill-muted-foreground'
-                        >
-                          Total GDP
-                        </tspan>
-                      </text>
-                    )
-                  }
-                }}
+                          <tspan
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            className='fill-foreground text-3xl font-bold'
+                          >
+                            ${totalgdp.toLocaleString()}
+                          </tspan>
+                          <tspan
+                            x={viewBox.cx}
+                            y={(viewBox.cy || 0) + 24}
+                            className='fill-muted-foreground'
+                          >
+                            Total GDP
+                          </tspan>
+                        </text>
+                      )
+                    }
+                  }}
+                />
+              </Pie>
+              <ChartLegend
+                layout={isMobile ? 'horizontal' : 'vertical'}
+                align={isMobile ? 'center' : 'left'}
+                verticalAlign={isMobile ? 'bottom' : 'middle'}
+                content={<ChartLegendContent />}
+                className={isMobile ? 'flex-row' : 'flex-col'}
               />
-            </Pie>
-            <ChartLegend
-              layout={isMobile ? 'horizontal' : 'vertical'}
-              align={isMobile ? 'center' : 'left'}
-              verticalAlign={isMobile ? 'bottom' : 'middle'}
-              content={<ChartLegendContent />}
-              className={isMobile ? 'flex-row' : 'flex-col'}
-            />
-          </PieChart>
-        </ChartContainer>
+            </PieChart>
+          </ChartContainer>
+        )}
       </CardContent>
     </Card>
   )

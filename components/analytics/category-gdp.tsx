@@ -12,6 +12,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart'
+import { gdpRequests } from '@/lib/api_requests/gdp.request'
+import { useEffect, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const renderActiveShape = (props: any) => {
@@ -87,32 +89,55 @@ const renderActiveShape = (props: any) => {
   )
 }
 
-const chartData = [
-  { category: 'hackathons', gdp: 275, label: 'Good', fill: 'red' },
-  { category: 'grants', gdp: 200, fill: 'green' },
-  { category: 'bounties', gdp: 287, fill: 'orange' },
-]
-
 const chartConfig = {
   gdp: {
     label: 'gdp',
+    color: 'blue',
   },
-  hackathons: {
+  hackathon: {
     label: 'Hackathons',
     color: 'red',
   },
-  grants: {
+  grant: {
     label: 'Grants',
     color: 'green',
   },
-  bounties: {
+  bounty: {
     label: 'Bounties',
     color: 'orange',
   },
 } satisfies ChartConfig
 
+interface ChartDataItem {
+  category: string
+  gdp: number
+  fill: string
+}
+
 export default function CategoryAnalytics() {
-  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768)
+  const [loading, setLoading] = useState(false)
+  const [chartData, setChartData] = useState<ChartDataItem[]>([])
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      const response = await gdpRequests.getGDPByCategory(setLoading)
+      if (response.success && response.data) {
+        console.log('response.data', response.data)
+        const formattedData = Object.entries(response.data?.data).map(
+          ([category, gdp]) => ({
+            category,
+            gdp: Number(gdp),
+            fill:
+              chartConfig[category as keyof typeof chartConfig]?.color ||
+              '#000',
+          })
+        )
+        setChartData(formattedData)
+      }
+    }
+    fetchCategoryData()
+  }, [])
 
   React.useEffect(() => {
     // This code will only run on the client side
@@ -132,7 +157,7 @@ export default function CategoryAnalytics() {
 
   const totalgdp = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.gdp, 0)
-  }, [])
+  }, [chartData])
 
   return (
     <Card className='flex flex-col w-full shadow-none border-none '>
@@ -142,64 +167,70 @@ export default function CategoryAnalytics() {
         {/* <CardDescription>$25,000 </CardDescription> */}
       </CardHeader>
       <CardContent className='flex-1 pb-0 '>
-        <ChartContainer
-          config={chartConfig}
-          className='mx-auto aspect-square max-h-[300px] py-6 w-full h-full '
-        >
-          <PieChart className='h-full '>
-            <ChartTooltip
-              cursor={true}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Pie
-              data={chartData}
-              dataKey='gdp'
-              nameKey='category'
-              innerRadius={60}
-              strokeWidth={5}
-              cx='50%'
-              cy='50%'
-              // activeShape={renderActiveShape}
-            >
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
-                    return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor='middle'
-                        dominantBaseline='middle'
-                      >
-                        <tspan
+        {loading ? (
+          <div className='flex justify-center items-center h-[300px]'>
+            <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+          </div>
+        ) : (
+          <ChartContainer
+            config={chartConfig}
+            className='mx-auto aspect-square max-h-[300px] py-6 w-full h-full '
+          >
+            <PieChart className='h-full '>
+              <ChartTooltip
+                cursor={true}
+                content={<ChartTooltipContent hideLabel />}
+              />
+              <Pie
+                data={chartData}
+                dataKey='gdp'
+                nameKey='category'
+                innerRadius={60}
+                strokeWidth={5}
+                cx='50%'
+                cy='50%'
+                // activeShape={renderActiveShape}
+              >
+                <Label
+                  content={({ viewBox }) => {
+                    if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                      return (
+                        <text
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className='fill-foreground text-3xl font-bold'
+                          textAnchor='middle'
+                          dominantBaseline='middle'
                         >
-                          ${totalgdp.toLocaleString()}
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className='fill-muted-foreground'
-                        >
-                          Total GDP
-                        </tspan>
-                      </text>
-                    )
-                  }
-                }}
+                          <tspan
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            className='fill-foreground text-3xl font-bold'
+                          >
+                            ${totalgdp.toLocaleString()}
+                          </tspan>
+                          <tspan
+                            x={viewBox.cx}
+                            y={(viewBox.cy || 0) + 24}
+                            className='fill-muted-foreground'
+                          >
+                            Total GDP
+                          </tspan>
+                        </text>
+                      )
+                    }
+                  }}
+                />
+              </Pie>
+              <ChartLegend
+                layout={isMobile ? 'horizontal' : 'vertical'}
+                align={isMobile ? 'center' : 'left'}
+                verticalAlign={isMobile ? 'bottom' : 'middle'}
+                content={<ChartLegendContent />}
+                className={isMobile ? 'flex-row' : 'flex-col'}
               />
-            </Pie>
-            <ChartLegend
-              layout={isMobile ? 'horizontal' : 'vertical'}
-              align={isMobile ? 'center' : 'left'}
-              verticalAlign={isMobile ? 'bottom' : 'middle'}
-              content={<ChartLegendContent />}
-              className={isMobile ? 'flex-row' : 'flex-col'}
-            />
-          </PieChart>
-        </ChartContainer>
+            </PieChart>
+          </ChartContainer>
+        )}
       </CardContent>
     </Card>
   )

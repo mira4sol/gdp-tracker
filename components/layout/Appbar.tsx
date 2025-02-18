@@ -7,8 +7,10 @@ import { Menu, PlusIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import Logo from '../../public/logo.png'
 import { Button } from '../ui/button'
+import { AddUserDialog } from '../users/add-user'
 
 type NavItem = {
   label: string
@@ -18,14 +20,19 @@ type NavItem = {
 const AppBar = () => {
   const { isLoggedIn, user } = useAuth()
   const pathname = usePathname()
+  const [canAddGDP, setCanAddGDP] = useState(false)
+
+  useEffect(() => {
+    console.log('user', user)
+    setCanAddGDP(
+      isLoggedIn && (user?.role === 'admin' || user?.role === 'moderator')
+    )
+  }, [isLoggedIn, user?.role])
 
   const navItems: NavItem[] = [
     { label: 'Dashboard', href: '/' },
     { label: 'Analytics', href: '/analytics' },
   ]
-
-  const canAddGDP: boolean =
-    isLoggedIn && (user?.role === 'admin' || user?.role === 'moderator')
 
   return (
     <div className='flex items-center w-full border-[#D9D9D9] border-b-4 justify-between py-3 px-4 sm:px-6 lg:px-8'>
@@ -55,9 +62,13 @@ const AppBar = () => {
       <div className='flex items-center gap-4'>
         {isLoggedIn ? (
           canAddGDP && (
-            <Button className='hidden sm:flex'>
-              Add GDP <PlusIcon className='ml-2 h-4 w-4 ' />
-            </Button>
+            <AddUserDialog
+              customTrigger={
+                <Button className='hidden sm:flex'>
+                  Add GDP <PlusIcon className='ml-2 h-4 w-4 ' />
+                </Button>
+              }
+            />
           )
         ) : (
           <Button onClick={login} className='hidden sm:flex'>

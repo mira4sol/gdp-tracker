@@ -6,7 +6,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 
 interface AuthContextType {
   isLoggedIn: boolean
-  user: User | null
+  user: (User & { role?: string }) | null
   loading: boolean
 }
 
@@ -17,8 +17,24 @@ const AuthContext = createContext<AuthContextType>({
 })
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<(User & { role?: string }) | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const fetchRole = async () => {
+    if (!user) return
+    const supabase = await createClient()
+    const { data, error } = await supabase
+      .from('user_roles')
+      .select('*')
+      .eq('user_id', user.id)
+      .single()
+
+    if (!error && data) {
+      setUser((currentUser) =>
+        currentUser ? { ...currentUser, role: data.role } : null
+      )
+    }
+  }
 
   const checkLogin = async () => {
     // Check active sessions and subscribe to auth changes
@@ -43,6 +59,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     checkLogin()
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      fetchRole()
+    }
+  }, [user])
 
   const value = {
     isLoggedIn: !!user,
